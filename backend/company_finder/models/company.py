@@ -3,7 +3,8 @@ from sqlalchemy import Column, Integer, String
 # FIX THAT IMPORT
 # from databases.database import Base
 
-from company_finder.databases.database import Base
+
+from databases.database import Base
 
 
 class Company(Base):

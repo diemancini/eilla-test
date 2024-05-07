@@ -3,8 +3,8 @@ import logging
 import re
 import time
 
-from .schemas.schemas import CompanyBase
 from .models.company import Company
+from .schemas.schemas import CompanyBase
 from .databases.database import Base, SessionLocal, engine
 
 from fastapi.middleware.cors import CORSMiddleware

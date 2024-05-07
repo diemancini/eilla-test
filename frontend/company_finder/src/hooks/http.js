@@ -1,8 +1,4 @@
 import { useEffect, useState, useCallback } from "react";
-//import { QueryClient } from "react-query";
-
-//delete after
-//export const queryClient = new QueryClient();
 
 async function sendHttpRequest(url, config) {
   const response = await fetch(url, config);
@@ -13,51 +9,60 @@ async function sendHttpRequest(url, config) {
       resData.message || "Something went wrong, failed to send request."
     );
   }
-  //const results = getFormatedJson(resData);
-
   return resData;
 }
 
-export function getUrl() {
-  const url = "http://localhost:3000";
+export function getUrl(searchTerms) {
+  //let url = "http://localhost:8000/company/names";
+  let url;
+  if (searchTerms) {
+    url = `http://localhost:8000/company?q=${searchTerms}`;
+  }
+  // for (let i = 1; i < searchTerms.length; i++) {
+  //   url += `&q=${searchTerms[i]}`;
+  // }
   return url;
 }
 
 export function useHttp(url, config, initialData) {
+  console.log("--------------- HOOK ------------------");
   const [data, setData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
 
   function clearData() {
     setData(initialData);
+    setError(null);
   }
 
   const sendRequest = useCallback(
-    async function sendRequest(body, requestOptions) {
+    async function sendRequest(reqData) {
       setIsLoading(true);
       try {
-        //const resData = await sendHttpRequest(url, requestOptions);
-        const resData = await sendHttpRequest(url, requestOptions);
+        const resData = await sendHttpRequest(url, {
+          ...config,
+          body: reqData,
+        });
         setData(resData);
       } catch (error) {
         setError(error.message || "Something went wrong!");
       }
       setIsLoading(false);
     },
-    [url]
+    [url, config]
   );
 
   useEffect(() => {
-    if ((config && (config.method === "GET" || !config.method)) || !config) {
-      sendRequest(null, null);
+    if (config && config.query && data.length === 0) {
+      console.log("IF IN SENDREQUEST");
+      sendRequest();
     }
-  }, [url, sendRequest, config]);
+  }, [config, data, sendRequest]);
 
   return {
     data,
     isLoading,
     error,
-    //sendRequest,
     clearData,
   };
 }
