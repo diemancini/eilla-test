@@ -1,16 +1,17 @@
-import "./App.css";
+//import "./App.css";
+//import "./index.scss";
 import {
   //Navigate,
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
 
-import Company from "./components/Company";
+import Home from "./components/Company/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Company />,
+    element: <Home />,
   },
   // {
   //   path: "/portfolio-frontend",

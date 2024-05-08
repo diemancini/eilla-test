@@ -3,6 +3,16 @@
 /* @import "compass/css3"; */
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,900);
 
+/* colors */
+$blue:rgba(79,192,210,1);
+$green:rgba(82,210,154,1);
+$yellow:rgba(231,196,104,0.7);
+$orange:rgba(235,118,85,1);
+//$dark-bg:rgba(255,255,255,0.9);
+$dark-bg:rgba(0,0,0,0.9);
+$light-bg:rgba(255,255,255,0.9);
+$text:rgba(0,0,0,0.9);
+
 body {
   margin: 0;
   font-family: 'Lato', serif;
@@ -56,31 +66,6 @@ code {
   text-align: center;
 }
 
-/* .leaderboard-table {
-  width: 80%;
-  text-align: center;
-} */
-
-div .leaderboard-table {
-  width: 80%;
-  text-align: center;
-  margin-left:10%; 
-  margin-right:10%;
-}
-
-/* .leaderboard-table th, .leaderboard-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-} */
-
-/* .leaderboard-table thead {
-  background-color: #f2f2f2;
-} */
-
-/* .leaderboard-table tr:nth-child(even) {
-  background-color: #f9f9f9;
-} */
 
 .lds-ring {
   display: inline-block;
@@ -98,7 +83,7 @@ div .leaderboard-table {
 }
 
 .content-section {
-  margin: 3rem 0 6rem 0;
+  //margin: 3rem 0 6rem 0;
   padding: 0 15%;
 }
 
@@ -133,42 +118,50 @@ div .leaderboard-table {
   }
 }
 
-
+.wrapper {
+  width:90%;
+  margin-left:5%; 
+  margin-right:5%;
+  //max-width:1200px;
+  padding:0;
+  background:$light-bg;
+  color:$text;
+  overflow:hidden;
+  position:relative; 
+}
 
 /* lists */
 .row ul {
   margin:0;
   padding:0;
+  //height:80px;
 }
 .row ul li  {
   margin:0;
+  padding:2px 2px;
+  //height:100%;
   font-size:13px;
+  text-align:left;
   font-weight:normal;
   list-style:none;
   display:inline-block;
-  width:12.5%;
+  width: 8%;
+  //height:45px;
 	box-sizing:border-box;
-  @media only screen and (max-width:1200px) and (min-width:480px) {
-    font-size:13px;
-  }
-  @media only screen and (max-width:479px) {
-    font-size:13px;
-  }
+  overflow-wrap: break-word;
 }
 
 .title ul li {
-  padding:15px 13px;
-}
-.row ul li {
-  padding:5px 10px;
+  padding:0px 0px 0px 22px;
+  font-size: 20px;
 }
 
 /* rows */
 .row {
   border-left:2px solid darken($blue, 30%);
   border-right:2px solid darken($blue, 30%);
-  padding:15px 10px;
-  height: 25px;
+  padding:5px 5px;
+  height: relative;
   font-size:0;
   position:relative;
   overflow:hidden;
@@ -180,28 +173,19 @@ div .leaderboard-table {
   border-right:2px solid lighten($blue, 30%);
   background-color:lighten(rgb(33,31,35), 10%);
   color: $light-bg;
-  height:65px;
-  @media only screen and (max-width : 1200px) and (min-width:768px) {
-    height:45px;
-  }
-  @media only screen and (max-width : 767px) and (min-width:360px){
-    height:85px;
-  }
-  @media only screen and (max-width : 359px) {
-    height:105px;
-  }
+  height:relative;
 }
 .title {
   padding:25px 0 5px 5px;
-  height:45px;
-  font-size: 18px;
+  height:relative;
   text-align: left;
   background-color: darken($light-bg, 30%);
   border-left:3px solid darken($dark-bg, 100%);
   border-right:3px solid darken($dark-bg, 100%);
+  //overflow-wrap: break-word;
 }
 .title:hover {
-  height:45px;
+  height:relative;
   background-color:darken($light-bg, 30%);
   color: $dark-bg;
   border-left:3px solid darken($dark-bg, 100%);
