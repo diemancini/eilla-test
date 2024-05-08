@@ -10,6 +10,7 @@ from .databases.database import Base, SessionLocal, engine
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
+from sqlalchemy import or_, and_
 
 Base.metadata.create_all(bind=engine)
 
@@ -41,17 +42,44 @@ def get_db():
 
 
 @app.get("/company", response_model=List[CompanyBase])
-def read_company(q: Union[str, None] = None, db: Session = Depends(get_db)):
-    logger.debug(q)
+def read_company(company_name: Union[str, None] = None, db: Session = Depends(get_db)):
+    logger.debug(company_name)
+    if company_name == None:
+        return []
     session = SessionLocal()
-    query_regexp = re.escape(q)
+    # query_regexp = re.escape(q)
     result = (
         session.query(Company)
         # .filter(Company.company_name.regexp_match(query_regexp))
-        .filter(Company.company_name.ilike(f"%{q}%")).all()
+        .filter(Company.company_name.ilike(f"%{company_name}%")).all()
+    )
+    if result:
+        logger.debug(result)
+    # for row in result:
+    #     logger.debug(f"row: {row.row}, company_name: {row.company_name}")
+    time.sleep(2)
+    return result
+
+
+@app.get("/company/similar", response_model=List[CompanyBase])
+def read_company_similar(
+    industry: Union[str, None] = None,
+    country: Union[str, None] = None,
+    keywords: Union[str, None] = None,
+    db: Session = Depends(get_db),
+):
+    logger.debug(industry)
+    logger.debug(country)
+    logger.debug(keywords.split(","))
+
+    session = SessionLocal()
+    result = session.query(Company).filter(
+        and_(Company.industry.like(industry), Company.country.like(country))
+        # .filter(Company.company_name.ilike(f"%{q}%")).all()
     )
     logger.debug(result)
     for row in result:
         logger.debug(f"row: {row.row}, company_name: {row.company_name}")
     time.sleep(2)
     return result
+    # return []

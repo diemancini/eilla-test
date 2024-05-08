@@ -10,13 +10,15 @@ const requestConfig = { query: "" };
 
 export default function Finder() {
   const searchElement = useRef();
+  //const handleButton = useRef();
   const [searchTerm, setSearchTerm] = useState();
 
-  requestConfig.query = searchTerm;
-  const url = getUrl(searchTerm);
+  requestConfig.query = { company_name: searchTerm };
+  const url = getUrl(requestConfig.query);
   const { data, isLoading, error, clearData } = useHttp(url, requestConfig, []);
   //console.log("----------- Component --------------");
   console.log(data);
+
   function handleSubmit(event) {
     event.preventDefault();
     clearData();
@@ -61,7 +63,7 @@ export default function Finder() {
           <button>Search</button>
         </form>
       </header>
-      {data && <h1>Found {data.length} companies</h1>}
+      {data && data.length === 0 && <h1>Found {data.length} companies</h1>}
       {data && data.length > 0 && !isLoading ? (
         <Table data={data} />
       ) : isLoading ? (

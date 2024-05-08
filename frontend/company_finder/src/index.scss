@@ -138,22 +138,23 @@ code {
 }
 .row ul li  {
   margin:0;
-  padding:2px 2px;
+  padding:2px 4px;
   //height:100%;
   font-size:13px;
   text-align:left;
   font-weight:normal;
   list-style:none;
   display:inline-block;
-  width: 8%;
+  width: 10%;
   //height:45px;
 	box-sizing:border-box;
   overflow-wrap: break-word;
 }
 
 .title ul li {
-  padding:0px 0px 0px 22px;
+  padding:0px 0px 0px 2px;
   font-size: 20px;
+  //width: 12%;
 }
 
 /* rows */
@@ -176,7 +177,7 @@ code {
   height:relative;
 }
 .title {
-  padding:25px 0 5px 5px;
+  padding:20px 0 5px 5px;
   height:relative;
   text-align: left;
   background-color: darken($light-bg, 30%);
@@ -197,3 +198,31 @@ code {
     display:none;
   }
 }
+// Modal
+.modal-close {
+  float: right;
+}
+.modal-position {
+  position: "relative";
+}
+// .modal-styles {
+//   position: "absolute";
+//   background-color: "#FFF";
+//   padding: "15px";
+//   z-index: "1000";
+//   width: "60%";
+//   border-radius: ".5em";
+// }
+
+// .overlay-style {
+//   position: "fixed";
+//   display: "flex";
+//   justify-content: "center";
+//   top: "0";
+//   left: "0";
+//   width: "100%";
+//   height: "100%";
+//   background-color: "rgba(0;0;0; .8)";
+//   z-index: "1000";
+//   overflow-y: "auto";
+// };
