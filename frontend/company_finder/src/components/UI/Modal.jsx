@@ -5,26 +5,26 @@ const MODAL_STYLES = {
   backgroundColor: "#FFF",
   padding: "15px",
   zIndex: "1000",
-  width: "60%",
-  // height: "90%",
+  width: "70%",
+  top: "5%",
+  bottom: "5%",
   borderRadius: ".5em",
+  overflow: "scroll",
 };
 const OVERLAY_STYLE = {
   position: "fixed",
   display: "flex",
   justifyContent: "center",
-  top: "5%",
-  //bottom: "50%",
+  top: "0%",
   left: "0",
   width: "100%",
   height: "100%",
-  backgroundColor: "rgba(0,0,0, .8)",
+  backgroundColor: "rgba(0,0,0,.8)",
   zIndex: "1000",
-  overflowY: "auto",
 };
 
 export default function Modal({ isOpen, handleClose, children }) {
-  console.log(isOpen);
+  //console.log(isOpen);
   if (!isOpen) return null;
   return (
     <>

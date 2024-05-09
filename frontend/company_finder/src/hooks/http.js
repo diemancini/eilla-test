@@ -28,7 +28,7 @@ export function getUrl(companyData) {
   }
 
   url += query.slice(0, -1);
-  console.log(query);
+  //console.log(query);
   return url;
 }
 

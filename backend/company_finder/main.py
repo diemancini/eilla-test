@@ -71,12 +71,17 @@ def read_company_similar(
     logger.debug(industry)
     logger.debug(country)
     logger.debug(keywords.split(","))
+    keywords_list = keywords.split(",")
 
     session = SessionLocal()
     result = session.query(Company).filter(
         and_(Company.industry.like(industry), Company.country.like(country))
         # .filter(Company.company_name.ilike(f"%{q}%")).all()
     )
+    results_keywords = session.query(Company).filter(
+        Company.keywords.in_(keywords_list)
+    )
+    result.join(results_keywords)
     logger.debug(result)
     for row in result:
         logger.debug(f"row: {row.row}, company_name: {row.company_name}")

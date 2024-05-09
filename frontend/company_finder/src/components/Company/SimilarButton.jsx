@@ -14,16 +14,11 @@ export default function SimilarButton({ companyInfo }) {
     country: companyInfo.country,
     keywords: companyInfo.keywords,
   };
-  //let data = [];
   const url = getUrl(query);
 
   const handleClose = () => {
     setOpen(false);
   };
-
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
 
   const handleButton = useCallback(async () => {
     setIsClicked(true);
@@ -39,11 +34,10 @@ export default function SimilarButton({ companyInfo }) {
   useEffect(() => {
     if (isClicked) handleButton();
   }, [handleButton, isClicked]);
-
+  console.log(`DATA SIZE: ${data.length}`);
   return (
     <>
-      {/* <Button query={query} handleButton={handleButton} /> */}
-      <button onClick={() => handleButton()}>Similar</button>;
+      <button onClick={() => handleButton()}>Similar</button>
       <Modal isOpen={open} handleClose={handleClose}>
         <div className='center modal-position'>
           <h3>Similar companies from {companyInfo.company_name}</h3>

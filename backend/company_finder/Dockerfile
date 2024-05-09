@@ -15,6 +15,10 @@ RUN set -ex \
 
 COPY . .
 
-RUN chmod +x entrypoint.sh
+# RUN chmod +x entrypoint.sh
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+# ENTRYPOINT ["/app/entrypoint.sh"]
+#CMD ["alembic", "upgrade", "head"]
+RUN alembic upgrade head
+
+CMD ["fastapi", "run", "main.py", "--port", "8000"]

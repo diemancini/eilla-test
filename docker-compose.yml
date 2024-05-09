@@ -1,18 +1,6 @@
 version: '3'
 services:
 
-  # kanban-postgres:
-  #   image: "postgres:9.6-alpine"
-  #   container_name: kanban-postgres
-  #   volumes:
-  #     - kanban-data:/var/lib/postgresql/data
-  #   ports:
-  #     - 5432:5432
-  #   environment:
-  #     - POSTGRES_DB:kanban
-  #     - POSTGRES_USER:kanban
-  #     - POSTGRES_PASSWORD:kanban
-
   backend-app:
     build: ./backend/company_finder
     container_name: backend
@@ -32,5 +20,3 @@ services:
       - 3000:3000
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    # links:
-    #   - kanban-app

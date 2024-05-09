@@ -120,33 +120,29 @@ code {
 
 .wrapper {
   width:90%;
+  height: 5%;
   margin-left:5%; 
   margin-right:5%;
-  //max-width:1200px;
   padding:0;
   background:$light-bg;
   color:$text;
-  overflow:hidden;
-  position:relative; 
+  position:relative;
 }
 
 /* lists */
 .row ul {
   margin:0;
   padding:0;
-  //height:80px;
 }
 .row ul li  {
   margin:0;
   padding:2px 4px;
-  //height:100%;
   font-size:13px;
   text-align:left;
   font-weight:normal;
   list-style:none;
   display:inline-block;
   width: 10%;
-  //height:45px;
 	box-sizing:border-box;
   overflow-wrap: break-word;
 }
@@ -185,19 +181,19 @@ code {
   border-right:3px solid darken($dark-bg, 100%);
   //overflow-wrap: break-word;
 }
-.title:hover {
-  height:relative;
-  background-color:darken($light-bg, 30%);
-  color: $dark-bg;
-  border-left:3px solid darken($dark-bg, 100%);
-  border-right:3px solid darken($dark-bg, 100%);
-}
+// .title:hover {
+//   height:relative;
+//   background-color:darken($light-bg, 30%);
+//   color: $dark-bg;
+//   border-left:3px solid darken($dark-bg, 100%);
+//   border-right:3px solid darken($dark-bg, 100%);
+// }
 
-.title-hide {
-  @media only screen and (max-width:767px) {
-    display:none;
-  }
-}
+// .title-hide {
+//   @media only screen and (max-width:767px) {
+//     display:none;
+//   }
+// }
 // Modal
 .modal-close {
   float: right;
@@ -226,3 +222,67 @@ code {
 //   z-index: "1000";
 //   overflow-y: "auto";
 // };
+.text-about {
+  position: relative;
+}
+.text-about:hover:after {
+  position: absolute;
+  content: attr(title);
+  display: inline-block;
+  left: 0px;
+  top: 0px;
+  padding: 5px;
+  width: 80%;
+  height: 100%;
+  //background-color: rgba(231, 20, 20, 0.842);
+  color: rgb(255, 255, 255);
+  //left: -9999px;
+
+margin: 20px 0 0 0px; padding: 3px 3px 3px 3px;
+
+border-style:solid; 
+border-color:rgba(240, 228, 228, 0.945); 
+border-width:1px;
+z-index: 2000;
+display:block;
+
+
+  //z-index: "1000";
+}
+
+// div .container + p {
+//   display: none;
+// }
+
+// div .container:hover + p {
+//   display: block;
+//   color: green;
+//   font-size: 25px;
+// }
+
+
+// .container {
+//   display: flex;
+//   flex-direction: column;
+// }
+// .container > p:first-child {
+//   align-self: flex-start;
+//   margin: 0;
+//   padding: 3px 10px;
+//   background: #ffff00;
+// }
+// .container > p:last-child {
+//   visibility: hidden;
+//   align-self: center;
+//   margin: 0;
+//   padding: 3px;
+//   border: 1px solid black;
+//   background: #c4d7dd;
+// }
+// .container > p:first-child:hover {
+//   background: #ffffff;
+//   cursor: pointer;
+// }
+// .container > p:first-child:hover + p {
+//   visibility: visible;
+// }
