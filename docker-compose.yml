@@ -4,14 +4,10 @@ services:
   backend-app:
     build: ./backend/company_finder
     container_name: backend
-    # environment:
-    #   - DB_SERVER=kanban-postgres
     ports:
       - 8000:8000
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    # links:
-    #   - kanban-postgres
 
   frontend-app:
     build: ./frontend/company_finder

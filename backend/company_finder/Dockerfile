@@ -6,7 +6,7 @@ SHELL ["/bin/bash", "-c"]
 RUN source backend_env/bin/activate
 
 WORKDIR /app
-# Copy in your requirements file
+
 ADD requirements.txt /app/requirements.txt
 
 RUN set -ex \
@@ -15,10 +15,6 @@ RUN set -ex \
 
 COPY . .
 
-# RUN chmod +x entrypoint.sh
-
-# ENTRYPOINT ["/app/entrypoint.sh"]
-#CMD ["alembic", "upgrade", "head"]
 RUN alembic upgrade head
 
 CMD ["fastapi", "run", "main.py", "--port", "8000"]

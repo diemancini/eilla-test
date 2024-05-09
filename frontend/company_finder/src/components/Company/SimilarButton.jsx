@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from "react";
-//import Button from "../UI/Button";
 import Modal from "../UI/Modal";
 import { getUrl, sendHttpRequest } from "../../hooks/http";
 import Table from "./Table";
@@ -10,6 +9,7 @@ export default function SimilarButton({ companyInfo }) {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const query = {
+    row: companyInfo.row,
     industry: companyInfo.industry,
     country: companyInfo.country,
     keywords: companyInfo.keywords,
@@ -25,16 +25,12 @@ export default function SimilarButton({ companyInfo }) {
     const resData = await sendHttpRequest(url, {});
     setOpen(true);
     setData(resData);
-    //console.log(data);
-    // setTimeout(function () {
-    //   alert(`The link was clicked. Data: ${company.company_name}`);
-    // }, 2000);
     setIsClicked(false);
   }, [setIsClicked, url]);
   useEffect(() => {
     if (isClicked) handleButton();
   }, [handleButton, isClicked]);
-  console.log(`DATA SIZE: ${data.length}`);
+
   return (
     <>
       <button onClick={() => handleButton()}>Similar</button>

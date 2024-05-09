@@ -24,12 +24,9 @@ const OVERLAY_STYLE = {
 };
 
 export default function Modal({ isOpen, handleClose, children }) {
-  //console.log(isOpen);
   if (!isOpen) return null;
   return (
     <>
-      {/* <div className='overlay-style'>
-        <div className='modal-styles'> */}
       <div style={OVERLAY_STYLE}>
         <div style={MODAL_STYLES}>
           <button className='modal-close' onClick={() => handleClose()}>

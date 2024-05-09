@@ -1,21 +1,15 @@
 from typing import Union, List
-import logging
-import re
-import time
 
 from .models.company import Company
+
 from .schemas.schemas import CompanyBase
 from .databases.database import Base, SessionLocal, engine
-
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
-from sqlalchemy import or_, and_
+from fastapi import FastAPI
+
+from sqlalchemy import and_
 
 Base.metadata.create_all(bind=engine)
-
-logger = logging.getLogger("uvicorn.error")
-logger.setLevel(logging.DEBUG)
 
 app = FastAPI()
 
@@ -32,59 +26,43 @@ app.add_middleware(
 )
 
 
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-@app.get("/company", response_model=List[CompanyBase])
-def read_company(company_name: Union[str, None] = None, db: Session = Depends(get_db)):
-    logger.debug(company_name)
-    if company_name == None:
+@app.get("/company")
+def read_company(company_name: Union[str, None] = None):
+    if company_name == None or company_name == "":
         return []
     session = SessionLocal()
-    # query_regexp = re.escape(q)
     result = (
         session.query(Company)
-        # .filter(Company.company_name.regexp_match(query_regexp))
-        .filter(Company.company_name.ilike(f"%{company_name}%")).all()
+        .filter(Company.company_name.ilike(f"%{company_name}%"))
+        .all()
     )
-    if result:
-        logger.debug(result)
-    # for row in result:
-    #     logger.debug(f"row: {row.row}, company_name: {row.company_name}")
-    time.sleep(2)
     return result
 
 
 @app.get("/company/similar", response_model=List[CompanyBase])
 def read_company_similar(
+    row: Union[str, None] = None,
     industry: Union[str, None] = None,
     country: Union[str, None] = None,
     keywords: Union[str, None] = None,
-    db: Session = Depends(get_db),
 ):
-    logger.debug(industry)
-    logger.debug(country)
-    logger.debug(keywords.split(","))
     keywords_list = keywords.split(",")
-
     session = SessionLocal()
-    result = session.query(Company).filter(
-        and_(Company.industry.like(industry), Company.country.like(country))
-        # .filter(Company.company_name.ilike(f"%{q}%")).all()
+
+    query_ind_country = session.query(Company).filter(
+        and_(
+            Company.industry.like(industry),
+            Company.country.like(country),
+            Company.row != row,
+        )
     )
-    results_keywords = session.query(Company).filter(
-        Company.keywords.in_(keywords_list)
-    )
-    result.join(results_keywords)
-    logger.debug(result)
-    for row in result:
-        logger.debug(f"row: {row.row}, company_name: {row.company_name}")
-    time.sleep(2)
-    return result
-    # return []
+    # Fetching results by keywords and put alongside of industry and country
+    query = session.query(Company).filter(False)
+    for keyword in keywords_list:
+        query_keyword = session.query(Company).filter(
+            and_(Company.company_name.ilike(f"%{keyword}%"), Company.row != row)
+        )
+        if query_keyword.first() is not None:
+            query = query_ind_country.union(query_keyword)
+
+    return query if query.first() is not None else query_ind_country

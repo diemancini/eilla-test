@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 export async function sendHttpRequest(url, config) {
   const response = await fetch(url, config);
   const resData = await response.json();
+  //console.log(resData);
 
   if (!response.ok) {
     throw new Error(
@@ -13,13 +14,12 @@ export async function sendHttpRequest(url, config) {
 }
 
 export function getUrl(companyData) {
-  //let url = "http://localhost:8000/company/names";
   const numberObjects = Object.keys(companyData).length;
   let url = "http://localhost:8000/company";
+
   if (numberObjects === 1 && companyData.company_name === undefined) return url;
   let query = "?";
-  //Object.keys(companyData).length === 3 ? (url += "/similar") : "";
-  if (numberObjects === 3) {
+  if (numberObjects === 4) {
     url += "/similar";
   }
 
@@ -28,12 +28,11 @@ export function getUrl(companyData) {
   }
 
   url += query.slice(0, -1);
-  //console.log(query);
+
   return url;
 }
 
 export function useHttp(url, config, initialData) {
-  //console.log("--------------- HOOK ------------------");
   const [data, setData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -62,7 +61,6 @@ export function useHttp(url, config, initialData) {
 
   useEffect(() => {
     if (config && config.query && data.length === 0) {
-      // console.log("IF IN SENDREQUEST");
       sendRequest();
     }
   }, [config, data, sendRequest]);

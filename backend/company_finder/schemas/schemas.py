@@ -5,8 +5,8 @@ from pydantic import BaseModel
 
 class CompanyBase(BaseModel):
     row: int
-    linkedin_url: Union[str, None] = None
     company_name: str
+    linkedin_url: Union[str, None] = None
     industry: Union[str, None] = None
     website: Union[str, None] = None
     tagline: Union[str, None] = None

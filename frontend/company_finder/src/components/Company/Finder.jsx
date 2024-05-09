@@ -24,7 +24,7 @@ export default function Finder() {
   return (
     <section className='center'>
       <header>
-        <h2>Find company!</h2>
+        <h2>Find company:</h2>
         <form onSubmit={handleSubmit} id='search-form'>
           <input
             type='search'
@@ -34,7 +34,7 @@ export default function Finder() {
           <button>Search</button>
         </form>
       </header>
-      {data && data.length === 0 && <h1>Found {data.length} companies</h1>}
+      {data && <h1>Found {data.length} companies</h1>}
       {data && data.length > 0 && !isLoading ? (
         <Table data={data} />
       ) : isLoading ? (

@@ -2,28 +2,27 @@
 
 ## BEFORE START
 
-All of this applications was developed in Ubuntu 20.04.6 LTS.
+All applications were developed on Ubuntu 20.04.6 LTS.
 
 ## INSTALL
 
-This application basically consists in two parts:
+Basically, the application consists of two parts:
 
 ### BACKEND
 
 The application needs a restfull api and database to store the dataset.
-Because of that, [FastApi](https://fastapi.tiangolo.com/) was used for that
-purpose, togheter with [Alembic](https://alembic.sqlalchemy.org/en/latest/index.html)
-for controlling migrations and [SqlAlchemy](https://www.sqlalchemy.org/) for creating
-and managing the database.
-It is not necessary to use the backend as a user, just the frontend (as expected).
+Considering this configuration, [FastApi](https://fastapi.tiangolo.com/) was used for that purpose, alongside with [Alembic](https://alembic.sqlalchemy.org/en/latest/index.html)
+to control migrations and [SqlAlchemy](https://www.sqlalchemy.org/) to create
+and manage the database.
+It is not necessary to use the backend as an user, just the frontend (as expected).
 
 ### FRONTEND
 
-The most used libray web application, [React](https://react.dev/) was used here to implement the frontend part. Based on single page view, the user can access on the browser via http://localhost:3000/ (after install and running the application, of course).
+The most popular libray web application, [React](https://react.dev/) was used in the application to implement the frontend. Based on a single page view, the user can access it via browser http://localhost:3000/ (after installing and running the application).
 
 ## INSTALATION
 
-In order to run this aplication, there are one of 3 ways to do it. After finished any of installation, you can access the application with these links:
+To install and run this application, there are 3 possibilites. After finishing the installation, you can access the application through these links:
 
 ### Frontend
 
@@ -33,7 +32,7 @@ http://localhost:3000/
 
 http://localhost:8000/docs
 
-First, we need to install the application one of these 3 options:
+First, we need to install the application using one of the 3 possibilites below:
 
 ### 1 - DOCKER COMPOSE
 
@@ -48,20 +47,27 @@ It is necessary to follow these steps bellow:
     docker-compose up web
 ```
 
-For building and running the application automatically, including migrations and seed data to db. You can stops containers and removes containers, networks, volumes, and images created by docker-compose up.
+For building and running the application automatically, including migrations and seed data to db. You can stop containers and remove containers, networks, volumes, and images created by docker-compose up.
 
 ```bash
     ctrl + c
     docker-compose down
 ```
 
+OR
+
+```bash
+    ctrl + c
+    docker rmi -f $(docker images -aq
+```
+
 ### 2 - DOCKER
 
-You can build separetaly both applications. Enter on each application root folders (eilla-test/backend/company_finder and eilla-test/backend/company_finder) and execute these commands:
+You can build separetaly both applications. On each application root folder (eilla-test/backend/company_finder and eilla-test/backend/company_finder) execute these commands:
 
 #### 1 - Install docker (https://docs.docker.com/engine/install/)
 
-#### 1 - Building and running
+#### 2 - Building and running
 
 ##### Frontend
 
@@ -77,17 +83,17 @@ docker build --no-cache -t company_backend:latest .
 docker run --network=host company_backend:latest
 ```
 
-### 3 - Install without dockerize
+### 3 - Install without dockerizing
 
 #### Backend
 
 #### 1 - Create a virtual enviroment (optional)
 
-For creating the [virtual enviroment](https://docs.python.org/3/library/venv.html), you have to:
+For creating the [virtual enviroment](https://docs.python.org/3/library/venv.html):
 
 ##### 1.a - Install virtual enviroment in PC
 
-##### 1.b - Enter the backend directory, create and activate env.
+##### 1.b - Enter the backend folder, create and activate env.
 
 ```bash
 cd /path/to/eilla-test/backend
@@ -97,7 +103,7 @@ source backend_env/bin/activate
 
 #### 2 - Install and run
 
-Enter these commands on terminal:
+Type these commands on terminal:
 
 ```bash
    cd /path/to/eilla-test/backend/company_finder
@@ -105,7 +111,7 @@ Enter these commands on terminal:
    fastapi dev main.py
 ```
 
-In order to test if its working, try to access http://localhost:8000/docs
+In order to test whether it is working, try to access http://localhost:8000/docs
 
 #### Frontend
 
@@ -113,7 +119,7 @@ In order to test if its working, try to access http://localhost:8000/docs
 
 ##### 1.b - Install ReactJs (https://react.dev/learn/installation)
 
-##### 1.c - Enter the frontend directory, install dependencies.
+##### 1.c - Enter the frontend folder and install dependencies.
 
 ```bash
     cd /path/to/eilla-test/frontend/company_finder
@@ -128,16 +134,14 @@ In order to test if its working, try to access http://localhost:8000/docs
 
 ## USING THE APPLICATION
 
-As a user, just access the [frontend](http://localhost:3000/) and you should see the page like this:
+As an user, access the [frontend](http://localhost:3000/) and a page like this should be visible:
 
-After putting down some company name in search bar, you should see the results in same page:
+After typing any company name into the search bar, the results should be visible in the same page:
 
-And if it has results, you can access similaries companies by clicking in "Similar" button in each row:
+If there is any result, similar companies can be accessed by clicking in "Similar" button on each row:
 
-### Notes
+#### Backend
 
-## Issues and Improvements
-
-### Issues
-
-### Improvements
+Backend has two endpoints to expose the data, located at company_finder/main.py. To feed the sqlite database,
+[Pandas](https://pandas.pydata.org/) was used to read the csv file, inside of one migration files (in Alembic is called revision).
+In order to find "similar" companies, the criteria is located at main.pu file, which is using the industry, country and keywords fields.
