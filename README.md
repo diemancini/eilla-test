@@ -136,9 +136,15 @@ In order to test whether it is working, try to access http://localhost:8000/docs
 
 As an user, access the [frontend](http://localhost:3000/) and a page like this should be visible:
 
+![Alt text](readme_images/home.png)
+
 After typing any company name into the search bar, the results should be visible in the same page:
 
+![Alt text](readme_images/companies.png)
+
 If there is any result, similar companies can be accessed by clicking in "Similar" button on each row:
+
+![Alt text](readme_images/similar.png)
 
 #### Backend
 

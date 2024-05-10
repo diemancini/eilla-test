@@ -3,7 +3,6 @@ import { useEffect, useState, useCallback } from "react";
 export async function sendHttpRequest(url, config) {
   const response = await fetch(url, config);
   const resData = await response.json();
-  //console.log(resData);
 
   if (!response.ok) {
     throw new Error(
